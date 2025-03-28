@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, RefreshCw, CheckCircle } from 'lucide-react';
+import { Lock, User, RefreshCw, CheckCircle, Eye, EyeOff } from 'lucide-react';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -9,6 +9,7 @@ const AdminLogin = () => {
   const [userCaptcha, setUserCaptcha] = useState('');
   const [error, setError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const generateCaptcha = () => {
@@ -63,9 +64,7 @@ const AdminLogin = () => {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Username
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <User className="h-5 w-5 text-gray-400" />
@@ -82,33 +81,33 @@ const AdminLogin = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <Lock className="h-5 w-5 text-gray-400" />
                   </div>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="pl-10 pr-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Enter password"
                     required
                   />
+                  <div
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
+                  </div>
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Captcha Verification
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Captcha Verification</label>
                 <div className="flex items-center space-x-4 mb-2">
                   <div className="flex-1 bg-gray-100 p-3 rounded-lg text-center">
-                    <span className="font-mono text-lg font-bold tracking-wider text-gray-700 select-none" style={{ fontFamily: 'monospace' }}>
-                      {captcha}
-                    </span>
+                    <span className="font-mono text-lg font-bold tracking-wider text-gray-700 select-none">{captcha}</span>
                   </div>
                   <button
                     type="button"
@@ -138,8 +137,7 @@ const AdminLogin = () => {
           </form>
         </div>
       </div>
-
-      {/* Success Popup */}
+      
       {isLoggedIn && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm">
@@ -147,22 +145,8 @@ const AdminLogin = () => {
             <h2 className="text-xl font-bold mt-4">Welcome to SPORTI Admin Panel</h2>
             <p className="text-gray-600 mt-2">Choose where you want to go:</p>
             <div className="mt-4 space-y-3">
-              <a
-                href="https://sporti-memebrship-admin.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-              >
-                Go to Lite Dashboard
-              </a>
-              <a
-                href="https://www.sporti.ksp.gov.in/admin"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
-              >
-                Go to Admin Dashboard
-              </a>
+              <a href="https://sporti-memebrship-admin.vercel.app/" target="_blank" className="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Go to Lite Dashboard</a>
+              <a href="https://www.sporti.ksp.gov.in/admin" target="_blank" className="block w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Go to Admin Dashboard</a>
             </div>
           </div>
         </div>
