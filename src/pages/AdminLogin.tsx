@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, RefreshCw } from 'lucide-react';
+import { Lock, User, RefreshCw, CheckCircle } from 'lucide-react';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
@@ -8,6 +8,7 @@ const AdminLogin = () => {
   const [captcha, setCaptcha] = useState('');
   const [userCaptcha, setUserCaptcha] = useState('');
   const [error, setError] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const generateCaptcha = () => {
@@ -23,7 +24,7 @@ const AdminLogin = () => {
     generateCaptcha();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (userCaptcha.toUpperCase() !== captcha) {
       setError('Invalid captcha code');
@@ -34,7 +35,7 @@ const AdminLogin = () => {
     
     // Demo credentials
     if (username === 'admin' && password === 'admin123') {
-        window.location.href = "https://www.sporti.ksp.gov.in/admin";
+      setIsLoggedIn(true);
     } else {
       setError('Invalid username or password');
       generateCaptcha();
@@ -137,6 +138,35 @@ const AdminLogin = () => {
           </form>
         </div>
       </div>
+
+      {/* Success Popup */}
+      {isLoggedIn && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl text-center max-w-sm">
+            <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
+            <h2 className="text-xl font-bold mt-4">Welcome to SPORTI Admin Panel</h2>
+            <p className="text-gray-600 mt-2">Choose where you want to go:</p>
+            <div className="mt-4 space-y-3">
+              <a
+                href="https://sporti-memebrship-admin.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+              >
+                Go to Lite Dashboard
+              </a>
+              <a
+                href="https://www.sporti.ksp.gov.in/admin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+              >
+                Go to Admin Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
