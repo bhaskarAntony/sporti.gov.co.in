@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { QrCode, IndianRupee } from 'lucide-react';
+import qrcodeImage from './qr_code.png'
 
 const PaymentPage = () => {
   const { id } = useParams();
@@ -29,7 +30,7 @@ const PaymentPage = () => {
 
             <div className="flex justify-center">
               <div className="border-4 border-green-600 rounded-2xl p-4 bg-white shadow-inner">
-                <QrCode className="w-56 h-56 text-green-600" />
+                <img src={qrcodeImage} alt="" className="w-56" />
               </div>
             </div>
             
