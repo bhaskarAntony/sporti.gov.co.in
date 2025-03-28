@@ -82,7 +82,7 @@ const PaymentVerification = () => {
               </p>
             </div>
             <button
-              onClick={() => navigate('/')}
+              onClick={() => window.location.href="https://www.sporti.ksp.gov.in"}
               className="bg-purple-600 text-white px-8 py-3 rounded-xl hover:bg-purple-700 transition-colors duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               Return to Home
