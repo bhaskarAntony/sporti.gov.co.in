@@ -34,7 +34,7 @@ const AdminLogin = () => {
     
     // Demo credentials
     if (username === 'admin' && password === 'admin123') {
-      navigate('/admin/dashboard');
+        window.location.href = "https://www.sporti.ksp.gov.in/admin";
     } else {
       setError('Invalid username or password');
       generateCaptcha();
